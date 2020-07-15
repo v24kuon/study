@@ -1,17 +1,22 @@
 <div class="container-login">
-<h1><%= t('.title', resource: resource_name.to_s.humanize) %></h1>
+<h1>プロフィール編集</h1>
 
 <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
   <%= bootstrap_devise_error_messages! %>
 
   <div class="form-group">
     <%= f.label :name %>
-    <%= f.text_field :name, autofocus: true, autocomplete: 'name', class: 'form-control' %>
+    <%= f.text_field :name, autofocus: true, autocomplete: 'name', class: 'form-control',required: true %>
   </div>
 
   <div class="form-group">
     <%= f.label :email %>
-    <%= f.email_field :email, autofocus: true, autocomplete: 'email', class: 'form-control' %>
+    <%= f.email_field :email, autofocus: true, autocomplete: 'email', class: 'form-control',required: true %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :occupation %>
+    <%= f.select :occupation, [["小学生", "小学生"], ["中学生", "中学生"], ["高校生", "高校生"], ["専門学校・大学生", "専門学校・大学生"],["その他・社会人", "その他・社会人"]], {prompt: "-- 選択してください --"},class: 'custom-select',required: true %>
   </div>
 
   <div class="form-group">
@@ -26,12 +31,6 @@
     <%= f.password_field :password_confirmation, autocomplete: 'new-password', class: 'form-control'  %>
   </div>
 
-  <div class="form-group">
-    <%= f.label :current_password %>
-    <%= f.password_field :current_password, autocomplete: 'current-password', class: 'form-control' %>
-
-    <small class="form-text text-muted"><%= t('.we_need_your_current_password_to_confirm_your_changes') %></small>
-  </div>
 
   <div class="form-group">
     <%= f.submit t('.update'), class: 'btn btn-success btn-block' %>

@@ -1,4 +1,7 @@
 class User < ApplicationRecord
+ # 同じ名前を使えなくする
+  validates :name, uniqueness: true
+  validates :occupation, presence: { message: 'を選択してください。' }
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
@@ -7,6 +10,9 @@ class User < ApplicationRecord
          :omniauthable, omniauth_providers: %i[google_oauth2]
          has_many :sns_credentials, dependent: :destroy
          has_many :posts, dependent: :destroy
+
+ # current_passwordなしでプロフィール編集する
+  attr_accessor :current_password
 
  def self.without_sns_data(auth)
     user = User.where(email: auth.info.email).first

@@ -31,3 +31,12 @@
 .alert-alert {
   @extend .alert-danger;
 }
+
+// バリデーションの赤枠
+
+.field_with_errors {
+  display: contents;
+  input, textarea, select, collection_select {
+    @extend .is-invalid;
+  }
+}

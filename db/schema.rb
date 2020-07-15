@@ -44,7 +44,7 @@ ActiveRecord::Schema.define(version: 2020_07_12_084304) do
     t.datetime "confirmation_sent_at"
     t.string "unconfirmed_email"
     t.string "name", null: false
-    t.string "occupation"
+    t.string "occupation", null: false
     t.string "image"
     t.text "introduction"
     t.string "user_tag"
