@@ -13,27 +13,30 @@
 
   <div class="field">
     <%= form.label :tag %>
-    <%= form.text_field :tag %>
+    <%= form.text_field :tag, class: "form-control" %>
   </div>
 
   <div class="field">
     <%= form.label :body %>
-    <%= form.text_area :body %>
+    <%= form.text_area :body, class: "form-control", style: "height: 150px;" %>
   </div>
 
   <div class="field">
-    <%= form.label :study_time %>
-    <%= form.text_field :study_time %>
+    <%= form.label :hour %>
+    <%= form.number_field :hour, class: "form-control", min: 0, max: 23, placeholder: "整数で入力" %>
+
+    <%= form.label :minutes %>
+    <%= form.number_field :minutes, class: "form-control", min: 0, max: 59, placeholder: "整数で入力" %>
   </div>
 
   <div class="field">
-    <%= form.label :post_image %>
-    <%= form.text_field :post_image %>
+    <%= attachment_image_tag post, :image, class: "img-fluid rounded img-thumbnail", fallback: "sample.jpg", size: "200x200" %>
+    <%= form.attachment_field :image %>
   </div>
 
   <div class="field">
     <%= form.label :post_video %>
-    <%= form.text_field :post_video %>
+    <%= form.text_field :post_video, class: "form-control" %>
   </div>
 
   <div class="actions">

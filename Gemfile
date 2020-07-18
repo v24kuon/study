@@ -79,3 +79,12 @@ gem 'dotenv-rails'
 gem 'bootstrap'
 gem 'jquery-rails'
 gem 'devise-bootstrap-views'
+#画像投稿用
+gem "refile", require: "refile/rails", github: 'manfe/refile'
+gem "refile-mini_magick"
+#ページネーション
+gem 'kaminari'
+#グラフ表示
+gem "chartkick"
+#タグ付け
+gem 'acts-as-taggable-on'

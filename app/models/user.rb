@@ -1,5 +1,6 @@
 class User < ApplicationRecord
  # 同じ名前を使えなくする
+  attachment :image
   validates :name, uniqueness: true
   validates :occupation, presence: { message: 'を選択してください。' }
   # Include default devise modules. Others available are:
@@ -14,6 +15,7 @@ class User < ApplicationRecord
  # current_passwordなしでプロフィール編集する
   attr_accessor :current_password
 
+ # SNS認証用
  def self.without_sns_data(auth)
     user = User.where(email: auth.info.email).first
 
@@ -59,5 +61,28 @@ class User < ApplicationRecord
       sns = without_sns_data(auth)[:sns]
     end
     return { user: user ,sns: sns}
+  end
+
+ #グラフの横軸用
+  def posts_period(period)
+    current = Time.current.beginning_of_day
+    case period
+    when "week"
+      start_date = current.ago(6.days)
+    when "month"
+      start_date = current.ago(1.month - 1.day)
+    when "year"
+      start_date = current.ago(1.year - 1.day)
+    else
+      start_date = current.ago(6.days)
+    end
+    end_date = Time.current
+    dates = {}
+    (start_date.to_datetime...end_date.to_datetime).each do |date|
+      posts = self.posts.where(created_at: date.beginning_of_day...date.end_of_day)
+      sum_times = posts.sum("hour + minutes/60").round(1)
+      dates.store(date.to_date.to_s, sum_times)
+    end
+    return dates
   end
 end

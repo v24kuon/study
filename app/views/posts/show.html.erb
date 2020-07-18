@@ -11,13 +11,18 @@
 </p>
 
 <p>
-  <strong>Study time:</strong>
-  <%= @post.study_time %>
+  <strong>hour:</strong>
+  <%= @post.hour.round %>
+</p>
+
+<p>
+  <strong>minutes:</strong>
+  <%= @post.minutes.round %>
 </p>
 
 <p>
   <strong>Post image:</strong>
-  <%= @post.post_image %>
+  <%= attachment_image_tag @post, :image %>
 </p>
 
 <p>

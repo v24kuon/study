@@ -3,8 +3,9 @@ class CreatePosts < ActiveRecord::Migration[5.2]
     create_table :posts do |t|
       t.string :tag, null: false
       t.text :body, null: false
-      t.string :study_time, null: false
-      t.string :post_image
+      t.float :hour, null: false
+      t.float :minutes, null: false
+      t.string :image_id
       t.string :post_video
       t.references :user, null: false, forign_key: true
 

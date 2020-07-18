@@ -15,8 +15,9 @@ ActiveRecord::Schema.define(version: 2020_07_12_084304) do
   create_table "posts", force: :cascade do |t|
     t.string "tag", null: false
     t.text "body", null: false
-    t.string "study_time", null: false
-    t.string "post_image"
+    t.float "hour", null: false
+    t.float "minutes", null: false
+    t.string "image_id"
     t.string "post_video"
     t.integer "user_id", null: false
     t.datetime "created_at", null: false
@@ -45,7 +46,7 @@ ActiveRecord::Schema.define(version: 2020_07_12_084304) do
     t.string "unconfirmed_email"
     t.string "name", null: false
     t.string "occupation", null: false
-    t.string "image"
+    t.string "image_id"
     t.text "introduction"
     t.string "user_tag"
     t.datetime "created_at", null: false

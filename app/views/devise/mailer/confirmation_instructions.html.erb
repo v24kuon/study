@@ -2,9 +2,15 @@
 
 <p>スタランに登録ありがとうございます</p>
 
-<p><%= t('.instruction') %></p>
+<p><%= t('.instruction') %><br>
+確認手続きが終わり次第ログインが必要なコンテンツがご利用できます
+</p>
 
 <p> リンクの有効期限は24時間になります。</p>
+
+<p> 「Googleでログイン」をされた方はアドレス確認後は<br>
+ボタンを押すだけでログインできます
+</p>
 
 <p><%= link_to t('.action'), confirmation_url(@resource, confirmation_token: @token) %></p>
 

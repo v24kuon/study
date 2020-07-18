@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Study</title>
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+  </head>
+
+<body>
+  <div class="container-login">
+    <header>
+      <div class="form-group">
+        <% if user_signed_in? %>
+          <%= link_to "トップページ", root_path(resource_name), class: 'btn btn-info btn-block mb-4' %>
+          <%= link_to 'マイページ', user_path(current_user.id) %>
+          <%= link_to 'ログアウト', destroy_user_session_path, method: :delete %>
+        <% else %>
+          <%= link_to "トップページ", root_path(resource_name), class: 'btn btn-info btn-block mb-4' %>
+        <% end %>
+      </div>
+    </header>
+<%= yield %>
+  </div>
+</body>
+</html>

@@ -1,0 +1,65 @@
+<div class="container figure-container">
+  <h1 class="title">グラフ</h1>
+  <div class="figure-sum-and-button row">
+    <span class="figure-sum-text col-sm">
+      <div>合計：<em class="figure-sum"><%= sum_times.round %></em> 時間</div>
+      <div>（<em class="figure-sum"><%= to_hour %></em> 分）</div>
+    </span>
+    <span class="dropdown col-sm">
+      <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <%= @user.posts_period(@period).keys.first %> - <%= @user.posts_period(@period).keys.last %>
+      </button>
+      <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+        <%= link_to "週間", user_path(@user, period: "week"), class: "dropdown-item" %>
+        <%= link_to "月間", user_path(@user, period: "month"), class: "dropdown-item" %>
+        <%= link_to "年間", user_path(@user, period: "year"), class: "dropdown-item" %>
+      </div>
+    </span>
+  </div>
+  <%= column_chart @chart %>
+</div>
+
+<div class="container-login">
+<h1>マイページ</h1>
+
+<table class="table">
+		<tr><%= attachment_image_tag(@user, :image, :fill, 100, 100, fallback: "sample.jpg") %></tr>
+
+		<tr>
+			<th>ニックネーム</th>
+			<th><%= @user.name %></th>
+		</tr>
+
+		<tr>
+			<th>自己紹介</th>
+			<th><%= simple_format(h(@user.introduction)) %></th>
+		</tr>
+
+		<tr>
+			<th>職業</th>
+			<th><%= @user.occupation %></th>
+		</tr>
+
+		<tr>
+			<th>タグ</th>
+			<th><%= @user.user_tag %></th>
+		</tr>
+</table>
+
+
+
+<% @posts.each do |post| %>
+        <%= post.tag %><br>
+        <%= post.body %><br>
+        <%= post.hour %><br>
+        <%= post.minutes %><br>
+<% end %>
+
+
+<p>これまでトータルで<%= @total_hour.round(1) %> 時間 の勉強したよ！</p>
+
+  <div class="form-group">
+  	<% if @user.id == current_user.id %>
+      <%= link_to("プロフィールを変更する", "/users/#{@user.id}/edit", { class: "btn btn-warning btn-block mb-4"}) %>
+    <% end %>
+  </div>
