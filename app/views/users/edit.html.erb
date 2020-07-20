@@ -1,5 +1,7 @@
 <div class="container-login">
-<h1>マイページ編集</h1>
+
+<%= render 'devise/shared/flash_messages' %>
+<%= render 'devise/shared/error_messages', resource: @user %>
 
 <%= form_for(@user) do |f| %>
 
@@ -24,8 +26,8 @@
   </div>
 
   <div class="form-group">
-    <%= f.label :user_tag %>
-    <%= f.text_field :user_tag, autofocus: true, autocomplete: 'user_tag', class: 'form-control',required: true %>
+    <%= f.label :tag_list, 'タグをカンマ区切りで入力' %>
+    <%= f.text_field :tag_list, value: @user.tag_list.join(','), "data-role" => "tagsinput", class: "form-control" %>
   </div>
 
   <div class="form-group">

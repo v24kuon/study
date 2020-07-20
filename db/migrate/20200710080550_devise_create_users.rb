@@ -36,7 +36,6 @@ class DeviseCreateUsers < ActiveRecord::Migration[5.2]
       t.string :occupation,null: false
       t.string :image_id
       t.text   :introduction
-      t.string :user_tag
       t.timestamps null: false
     end
 

@@ -4,11 +4,49 @@ class PostsController < ApplicationController
 
 
   def index
-    @posts = Post.all
+ # 全投稿を表示
+    @posts = Post.page(params[:page]).reverse_order
+ # タグ検索
+    if params[:tag_user]
+       @search = Post.ransack(params[:q])
+       @users = User.tagged_with("#{params[:tag_user]}")
+       @posts = Post.where(user_id: @users)
+    elsif params[:tag_name]
+       @search = Post.ransack(params[:q])
+       @posts = Post.tagged_with("#{params[:tag_name]}")
+ # 検索ボックス
+    elsif @search = Post.ransack(params[:q])
+       @posts = @search.result
+    end
+
+    # @ranking_posts = Post.where(created_at: Time.current.beginning_of_month..Time.current.end_of_month)
+    #   .group('user_id')
+    #   .order('sum(hour + minutes / 60) DESC')
+
+    # SELECT "users".* FROM "users"
+    # LEFT OUTER JOIN "posts" ON "posts"."user_id" = "users"."id"
+    # WHERE "posts"."created_at"
+    #   BETWEEN ? AND ?
+    # GROUP BY posts.user_id
+    # ORDER BY sum(posts.hour + posts.minutes / 60) DESC
+    # [["created_at", "2020-06-30 15:00:00"], ["created_at", "2020-07-31 14:59:59.999999"]]
+
+    @users = User.all
+    @ranking_users = User.left_joins(:posts)
+      .where(posts: { created_at: Time.current.beginning_of_month..Time.current.end_of_month })
+      .group('posts.user_id')
+      .order('sum(posts.hour + posts.minutes / 60) DESC')
+    # @ranks = Post.where(:created_at=> Time.current.beginning_of_month..Time.current.end_of_month).sum("hour + minutes/60")
+    # user.posts.where(
+    #   :created_at=> Time.current.beginning_of_month..Time.current.end_of_month).pluck(:hour).sum
+    #   + user.posts.where(:created_at=> Time.current.beginning_of_month..Time.current.end_of_month
+    # ).pluck(:minutes).sum / 60
   end
 
 
   def show
+    @comment = Comment.new
+    @comments = @post.comments
   end
 
 
@@ -43,7 +81,7 @@ class PostsController < ApplicationController
 
   def destroy
     @post.destroy
-      redirect_to posts_url, notice: 'Post was successfully destroyed.'
+      redirect_to user_url, notice: 'Post was successfully destroyed.'
   end
 
   private
@@ -54,6 +92,6 @@ class PostsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def post_params
-      params.require(:post).permit(:tag, :body, :hour, :minutes, :image, :post_video)
+      params.require(:post).permit(:body, :hour, :minutes, :image, :post_video, :tag_list)
     end
 end

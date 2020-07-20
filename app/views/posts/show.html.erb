@@ -1,34 +1,50 @@
-<p id="notice"><%= notice %></p>
+<%= render 'devise/shared/flash_messages' %>
 
-<p>
-  <strong>Tag:</strong>
-  <%= @post.tag %>
-</p>
+  <div class="card mb-3 border-secondary" style="max-width: 540px;">
+    <div class="card-header border-primary">
+      <%= link_to(@post.user) do %>
+      <%= attachment_image_tag @post.user, :image, :fill, 45, 45, class: "rounded-circle", fallback: "sample.jpg", size:'45x45'%>
+      <% end %>
+      <%= link_to @post.user.name, @post.user %>
+      <div class="float-right">
+      <%= @post.created_at.strftime('%Y/%m/%d') %>
+      <font color="#808080">
+      <%= time_ago_in_words(@post.created_at) %>前
+      </font>
+      </div>
+      </div>
+    <div class="row no-gutters">
+      <div class="col-sm-4">
+        <%= attachment_image_tag @post, :image, :fill, 300, 300, class: "card-img", fallback: "sample.jpg"%>
+      </div>
+      <div class="card-body">
+        <div class="col-sm-8">
+          <h5 class="card-title"><%= render 'posts/tag_list', tag_list: @post.tag_list %></h5>
+          <p class="card-text"><%= @post.body %></p>
+        </div>
+      </div>
+    </div>
+      <div class="card-footer text-muted border-primary">
+        <%= link_to 'Edit', edit_post_path(@post), class: 'btn btn-info' %>
+        <div class="text-right">
+        <%= total_hour(@post.hour,@post.minutes) %>
+        </div>
+      </div>
+  </div>
 
-<p>
-  <strong>Body:</strong>
-  <%= @post.body %>
-</p>
+<!-- コメント機能 -->
+  <div>
+    <div id="comments_area">
+      <!-- 投稿されたコメント一覧を詳細ページに表示するためのrender -->
+      <%= render partial: 'comments/index', locals: { comments: @comments } %>
+    </div>
+    <% if user_signed_in? %>
+      <!-- コメント入力欄を詳細ページに表示するためのrender -->
+      <%= render partial: 'comments/form', locals: { comment: @comment, post: @post } %>
+    <% end %>
+  </div>
 
-<p>
-  <strong>hour:</strong>
-  <%= @post.hour.round %>
-</p>
-
-<p>
-  <strong>minutes:</strong>
-  <%= @post.minutes.round %>
-</p>
-
-<p>
-  <strong>Post image:</strong>
-  <%= attachment_image_tag @post, :image %>
-</p>
-
-<p>
-  <strong>Post video:</strong>
-  <%= @post.post_video %>
-</p>
-
-<%= link_to 'Edit', edit_post_path(@post) %> |
-<%= link_to 'Back', posts_path %>
+<!-- いいね -->
+  <div id="favorites_buttons_<%= @post.id %>">
+    <%= render partial: 'favorites/like', locals: { post: @post} %>
+  </div>

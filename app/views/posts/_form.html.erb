@@ -1,45 +1,45 @@
-<%= form_with(model: post, local: true) do |form| %>
-  <% if post.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(post.errors.count, "error") %> prohibited this post from being saved:</h2>
-
-      <ul>
+<%= form_with(model: post, local: true) do |f| %>
+<% if post.errors.any? %>
+  <div id="error_explanation">
+    <ul>
       <% post.errors.full_messages.each do |message| %>
         <li><%= message %></li>
       <% end %>
-      </ul>
-    </div>
-  <% end %>
+    </ul>
+  </div>
+<% end %>
 
-  <div class="field">
-    <%= form.label :tag %>
-    <%= form.text_field :tag, class: "form-control" %>
+
+  <div class="form-group">
+    <%= f.label :tag_list, 'タグをカンマ区切りで入力' %>
+    <%= f.text_field :tag_list, value: @post.tag_list.join(','), "data-role" => "tagsinput", class: "form-control" %>
   </div>
 
-  <div class="field">
-    <%= form.label :body %>
-    <%= form.text_area :body, class: "form-control", style: "height: 150px;" %>
+
+  <div class="form-group">
+    <%= f.label :body %>
+    <%= f.text_area :body, class: "form-control", style: "height: 150px;" %>
   </div>
 
-  <div class="field">
-    <%= form.label :hour %>
-    <%= form.number_field :hour, class: "form-control", min: 0, max: 23, placeholder: "整数で入力" %>
+  <div class="form-group">
+    <%= f.label :hour %>
+    <%= f.number_field :hour, class: "form-control", min: 0, max: 23, placeholder: "整数で入力" %>
 
-    <%= form.label :minutes %>
-    <%= form.number_field :minutes, class: "form-control", min: 0, max: 59, placeholder: "整数で入力" %>
+    <%= f.label :minutes %>
+    <%= f.number_field :minutes, class: "form-control", min: 0, max: 59, placeholder: "整数で入力" %>
   </div>
 
-  <div class="field">
+  <div class="form-group">
     <%= attachment_image_tag post, :image, class: "img-fluid rounded img-thumbnail", fallback: "sample.jpg", size: "200x200" %>
-    <%= form.attachment_field :image %>
+    <%= f.attachment_field :image %>
   </div>
 
-  <div class="field">
-    <%= form.label :post_video %>
-    <%= form.text_field :post_video, class: "form-control" %>
+  <div class="form-group">
+    <%= f.label :post_video %>
+    <%= f.text_field :post_video, class: "form-control" %>
   </div>
 
   <div class="actions">
-    <%= form.submit %>
+    <%= f.submit %>
   </div>
 <% end %>

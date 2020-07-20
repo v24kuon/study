@@ -88,3 +88,8 @@ gem 'kaminari'
 gem "chartkick"
 #タグ付け
 gem 'acts-as-taggable-on'
+#検索機能
+gem 'ransack'
+
+gem 'hirb'
+gem 'hirb-unicode'

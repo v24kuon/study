@@ -9,6 +9,10 @@ class UsersController < ApplicationController
  #グラフの表示用
     @period = params[:period]
     @chart = @user.posts_period(@period)
+ #タグ検索
+    if params[:tag_name]
+      @tasks = @user.posts.tagged_with("#{params[:tag_name]}")
+    end
   end
 
   def edit
@@ -29,7 +33,7 @@ class UsersController < ApplicationController
   end
 
   def user_params
-  	params.require(:user).permit( :image, :name, :introduction, :occupation, :user_tag)
+  	params.require(:user).permit( :image, :name, :introduction, :occupation, :tag_list)
   end
 
   #url直接防止　メソッドを自己定義してbefore_actionで発動。

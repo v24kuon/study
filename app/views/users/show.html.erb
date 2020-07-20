@@ -1,8 +1,11 @@
+<%= render 'devise/shared/flash_messages' %>
+<p id="notice"><%= notice %></p>
+
 <div class="container figure-container">
   <h1 class="title">グラフ</h1>
   <div class="figure-sum-and-button row">
     <span class="figure-sum-text col-sm">
-      <div>合計：<em class="figure-sum"><%= sum_times.round %></em> 時間</div>
+      <div>合計：<em class="figure-sum"><%= sum_times.round(1) %></em> 時間</div>
       <div>（<em class="figure-sum"><%= to_hour %></em> 分）</div>
     </span>
     <span class="dropdown col-sm">
@@ -16,7 +19,13 @@
       </div>
     </span>
   </div>
-  <%= column_chart @chart %>
+  <%= column_chart @chart,
+                 id: 'chart',
+                 width: '900px',
+                 height: '500px',
+                 colors: ['#b00'],
+                 xtitle: "日付", ytitle: "時間"
+                 %>
 </div>
 
 <div class="container-login">
@@ -42,17 +51,18 @@
 
 		<tr>
 			<th>タグ</th>
-			<th><%= @user.user_tag %></th>
+			<th><%= render 'users/tag_list', tag_list: @user.tag_list %></th>
 		</tr>
 </table>
 
-
-
 <% @posts.each do |post| %>
-        <%= post.tag %><br>
+        <%= render 'posts/tag_list', tag_list: post.tag_list %><br>
         <%= post.body %><br>
         <%= post.hour %><br>
         <%= post.minutes %><br>
+        <% if @user.id == current_user.id %>
+        <%= link_to 'Destroy', post, method: :delete, data: { confirm: '本当に削除しますか？' } %>
+        <% end %>
 <% end %>
 
 
