@@ -5,7 +5,7 @@
 
 <%= form_for(@user) do |f| %>
 
-  <div class="form-group">
+  <div class="form-group" id="user_image">
     <%= attachment_image_tag @user, :image, class: "img-fluid rounded img-thumbnail", fallback: "sample.jpg", size: "200x200" %>
     <%= f.attachment_field :image %>
   </div>
@@ -40,3 +40,19 @@
     <%= link_to '設定変更', edit_user_registration_path, class: 'btn btn-warning btn-block mb-4' %>
     <%= link_to "トップページ", root_path, class: 'btn btn-info btn-block mb-4' %>
   </div>
+
+<script>
+$(function(){
+    // inputのidから情報の取得
+    $('#user_image').on('change', function (e) {
+// ここから既存の画像のurlの取得
+    var reader = new FileReader();
+    reader.onload = function (e) {
+        $(".image").attr('src', e.target.result);
+    }
+// ここまで
+    reader.readAsDataURL(e.target.files[0]); //取得したurlにアップロード画像のurlを挿入
+});
+});
+
+</script>

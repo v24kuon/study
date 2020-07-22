@@ -96,7 +96,7 @@ class User < ApplicationRecord
   #   return dates
   # end
 
- # #グラフの横軸用
+ # グラフの横軸用
   def posts_period(period)
     case period
     when "week"
@@ -120,5 +120,20 @@ class User < ApplicationRecord
       dates.store(date.to_date.to_s, sum_times)
     end
     return dates
+  end
+
+ # ユーザー検索
+  def self.search(search,word)
+    if search == "forward_match"
+      @user = User.where("name LIKE?","#{word}%")
+    elsif search == "backward_match"
+      @user = User.where("name LIKE?","%#{word}")
+    elsif search == "perfect_match"
+      @user = User.where("#{word}")
+    elsif search == "partial_match"
+      @user = User.where("name LIKE?","%#{word}%")
+    else
+      @user = User.all
+    end
   end
 end

@@ -1,22 +1,25 @@
 class PostsController < ApplicationController
   before_action :set_post, only: [:show, :edit, :update, :destroy]
-  before_action :authenticate_user!,except: [:index]
+  before_action :authenticate_user!,except: [:index, :show]
 
 
   def index
- # 全投稿を表示
-    @posts = Post.page(params[:page]).reverse_order
+    @occupations = ['小学生']
+    if params[:occupation_name]
+       @posts = Post.joins(:user).where(users: {occupation: params[:occupation_name]}).page(params[:page]).reverse_order
  # タグ検索
-    if params[:tag_user]
+    elsif params[:tag_user]
        @search = Post.ransack(params[:q])
        @users = User.tagged_with("#{params[:tag_user]}")
-       @posts = Post.where(user_id: @users)
+       @posts = Post.where(user_id: @users).page(params[:page]).reverse_order
     elsif params[:tag_name]
        @search = Post.ransack(params[:q])
-       @posts = Post.tagged_with("#{params[:tag_name]}")
- # 検索ボックス
-    elsif @search = Post.ransack(params[:q])
-       @posts = @search.result
+       @posts = Post.tagged_with("#{params[:tag_name]}").page(params[:page]).reverse_order
+    else
+       if :created_at == :updated_at
+       @posts = Post.page(params[:page]).order(created_at: :desc)
+       else @posts = Post.page(params[:page]).order(updated_at: :desc)
+       end
     end
 
     # @ranking_posts = Post.where(created_at: Time.current.beginning_of_month..Time.current.end_of_month)
@@ -36,6 +39,7 @@ class PostsController < ApplicationController
       .where(posts: { created_at: Time.current.beginning_of_month..Time.current.end_of_month })
       .group('posts.user_id')
       .order('sum(posts.hour + posts.minutes / 60) DESC')
+      .limit(20)
     # @ranks = Post.where(:created_at=> Time.current.beginning_of_month..Time.current.end_of_month).sum("hour + minutes/60")
     # user.posts.where(
     #   :created_at=> Time.current.beginning_of_month..Time.current.end_of_month).pluck(:hour).sum
@@ -46,7 +50,7 @@ class PostsController < ApplicationController
 
   def show
     @comment = Comment.new
-    @comments = @post.comments
+    @comments = @post.comments.order(created_at: :desc)
   end
 
 
@@ -72,7 +76,7 @@ class PostsController < ApplicationController
 
   def update
       if @post.update(post_params)
-        redirect_to @post, notice: 'Post was successfully updated.'
+        redirect_to @post, notice: "更新しました"
       else
         render 'edit'
       end
@@ -81,7 +85,7 @@ class PostsController < ApplicationController
 
   def destroy
     @post.destroy
-      redirect_to user_url, notice: 'Post was successfully destroyed.'
+      redirect_to user_path(@post.user.id), notice: "削除しました"
   end
 
   private

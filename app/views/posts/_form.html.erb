@@ -1,16 +1,6 @@
 <%= form_with(model: post, local: true) do |f| %>
-<% if post.errors.any? %>
-  <div id="error_explanation">
-    <ul>
-      <% post.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-    </ul>
-  </div>
-<% end %>
 
-
-  <div class="form-group">
+  <div class="form-group"　id="post_image">
     <%= f.label :tag_list, 'タグをカンマ区切りで入力' %>
     <%= f.text_field :tag_list, value: @post.tag_list.join(','), "data-role" => "tagsinput", class: "form-control" %>
   </div>
@@ -18,7 +8,7 @@
 
   <div class="form-group">
     <%= f.label :body %>
-    <%= f.text_area :body, class: "form-control", style: "height: 150px;" %>
+    <%= f.text_area :body, class: "form-control", style: "height: 150px;",required: true %>
   </div>
 
   <div class="form-group">
@@ -43,3 +33,20 @@
     <%= f.submit %>
   </div>
 <% end %>
+
+
+<script>
+$(function(){
+    // inputのidから情報の取得
+    $('#post_image').on('change', function (e) {
+// ここから既存の画像のurlの取得
+    var reader = new FileReader();
+    reader.onload = function (e) {
+        $(".image").attr('src', e.target.result);
+    }
+// ここまで
+    reader.readAsDataURL(e.target.files[0]); //取得したurlにアップロード画像のurlを挿入
+});
+});
+
+</script>

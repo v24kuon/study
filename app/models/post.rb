@@ -14,6 +14,21 @@ class Post < ApplicationRecord
  # 空白を禁止する
   validates :body, :hour, :minutes, presence: true
 
+  def self.search(search, word)
+    if search == "forward_match"
+      @post = Post.where("body LIKE?","#{word}%")
+    elsif search == "backward_match"
+      @post = Post.where("body LIKE?","%#{word}")
+    elsif search == "perfect_match"
+      @post = Post.where("#{word}")
+    elsif search == "partial_match"
+      @post = Post.where("body LIKE?","%#{word}%")
+    else @post = Post.all
+    end
+  end
+
+
+
   def self.sum_times
   	posts.sum("hour + minutes/60").round(1)
   end

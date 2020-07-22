@@ -90,6 +90,8 @@ gem "chartkick"
 gem 'acts-as-taggable-on'
 #検索機能
 gem 'ransack'
-
+#ターミナルを見やすくする
 gem 'hirb'
 gem 'hirb-unicode'
+#タグのjqueryに使用
+gem "jquery-ui-rails"

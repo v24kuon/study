@@ -1,0 +1,85 @@
+<%= render 'devise/shared/flash_messages' %>
+
+<h2>Results index</h2>
+<!--ユーザー一覧 -->
+<% if @range == '1' %>
+
+<% @user.each do |user| %>
+<table class="table">
+    <tr><%= attachment_image_tag(user, :image, :fill, 100, 100, fallback: "sample.jpg") %></tr>
+
+    <tr>
+      <th>ニックネーム</th>
+      <th><%= user.name %></th>
+    </tr>
+
+    <tr>
+      <th>自己紹介</th>
+      <th><%= simple_format(h(user.introduction)) %></th>
+    </tr>
+
+    <tr>
+      <th>職業</th>
+      <th><%= user.occupation %></th>
+    </tr>
+
+    <tr>
+      <th>タグ</th>
+      <th><%= render 'users/tag_list', tag_list: user.tag_list %></th>
+    </tr>
+</table>
+<% end %>
+  </div>
+
+<% else %>
+
+<div class="container">
+  <div class="row">
+  <div class="col-sm-6">
+<% @post.each do |post| %>
+  <div class="card mb-3 border-secondary" style="max-width: 540px;">
+    <div class="card-header border-primary">
+      <%= link_to(post.user) do %>
+      <%= attachment_image_tag post.user, :image, :fill, 60, 60, class: "rounded-circle", fallback: "sample.jpg", size:'50x50'%>
+      <% end %>
+      <%= link_to post.user.name, post.user %>
+      <div class="float-right">
+      <%= post.created_at.strftime('%Y/%m/%d') %>
+      <font color="#808080">
+      <%= time_ago_in_words(post.created_at) %>前
+      </font>
+      </div>
+      </div>
+    <div class="row no-gutters">
+      <div class="col-sm-4">
+        <%= attachment_image_tag post, :image, :fill, 300, 300, class: "card-img", fallback: "sample.jpg"%>
+      </div>
+      <div class="card-body">
+        <div class="col-sm-8">
+          <h5 class="card-title"><%= render 'posts/tag_list', tag_list: post.tag_list %></h5>
+          <p class="card-text"><%= post.body %></p>
+        </div>
+      </div>
+    </div>
+      <div class="card-footer text-muted border-primary">
+        <div class="d-flex">
+        <div class="p-2">
+        <div id="favorites_buttons_<%= post.id %>">
+          <%= render partial: 'favorites/like', locals: { post: post} %>
+        </div>
+        </div>
+        <div class="p-2">
+        <i class="fas fa-comment-dots faa-float animated" style="color: #FFD700;"></i>
+        <%= post.comments.count %>
+        </div>
+        <%= link_to 'コメント', post, class: 'ml-auto p-2 btn btn-info' %>
+        </div>
+        <div class="float-right">
+        <i class="fas fa-history" style="color: #000066;"></i>
+        <%= total_hour(post.hour,post.minutes) %>
+        </div>
+      </div>
+  </div>
+<% end %>
+  </div>
+<% end %>

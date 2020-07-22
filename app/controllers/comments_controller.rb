@@ -11,6 +11,7 @@ class CommentsController < ApplicationController
 
   def destroy
     @comment = Comment.find(params[:id])
+    @post = Post.find(params[:post_id])
     if @comment.destroy
       render :index
     end

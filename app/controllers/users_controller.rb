@@ -1,6 +1,7 @@
 class UsersController < ApplicationController
   before_action :baria_user, only: [:update, :edit]
   before_action :set_user, only: [:show, :edit, :update]
+  before_action :authenticate_user!
 
   def show
  # ユーザーの全投稿
