@@ -13,6 +13,13 @@ class Post < ApplicationRecord
   acts_as_taggable
  # 空白を禁止する
   validates :body, :hour, :minutes, presence: true
+ # 時間の入力制限
+  validates :hour, length: { in: 0..23 }
+ # 分の入力制限
+  validates :minutes, length: { in: 0..59 }
+ # もっと見るで表示する件数
+  paginates_per 5
+  # validates :body, :hour, :minutes, presence: true
 
   def self.search(search, word)
     if search == "forward_match"
@@ -27,8 +34,7 @@ class Post < ApplicationRecord
     end
   end
 
-
-
+ # 合計時間
   def self.sum_times
   	posts.sum("hour + minutes/60").round(1)
   end

@@ -4,7 +4,7 @@ class PostsController < ApplicationController
 
 
   def index
-    @occupations = ['小学生']
+    @occupations = '小学生','中学生','高校生','専門学校・大学生','その他・社会人'
     if params[:occupation_name]
        @posts = Post.joins(:user).where(users: {occupation: params[:occupation_name]}).page(params[:page]).reverse_order
  # タグ検索
@@ -76,7 +76,7 @@ class PostsController < ApplicationController
 
   def update
       if @post.update(post_params)
-        redirect_to @post, notice: "更新しました"
+        redirect_to user_path(@post.user.id), notice: "更新しました"
       else
         render 'edit'
       end

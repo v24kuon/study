@@ -1,3 +1,4 @@
+<div class="container-login">
 <%= form_with(model: post, local: true) do |f| %>
 
   <div class="form-group"　id="post_image">
@@ -7,21 +8,34 @@
 
 
   <div class="form-group">
+    <span class="badge badge-danger">必須</span>
     <%= f.label :body %>
     <%= f.text_area :body, class: "form-control", style: "height: 150px;",required: true %>
   </div>
 
   <div class="form-group">
-    <%= f.label :hour %>
-    <%= f.number_field :hour, class: "form-control", min: 0, max: 23, placeholder: "整数で入力" %>
-
-    <%= f.label :minutes %>
-    <%= f.number_field :minutes, class: "form-control", min: 0, max: 59, placeholder: "整数で入力" %>
+    <span class="badge badge-danger">必須</span>
+  <div class="d-flex">
+    <div class="col-sm-3 p-1">
+      <%= f.number_field :hour, class: "form-control", min: 0, max: 23, placeholder: "整数で入力" %>
+    </div>
+    <div class="align-self-center pt-2 pr-1">
+      <%= f.label :hour %>
+    </div>
+    <div class="col-sm-3 p-1">
+      <%= f.number_field :minutes, class: "form-control", min: 0, max: 59, placeholder: "整数で入力" %>
+    </div>
+    <div class="align-self-center pt-2">
+      <%= f.label :minutes %>
+    </div>
+  </div>
   </div>
 
   <div class="form-group">
-    <%= attachment_image_tag post, :image, class: "img-fluid rounded img-thumbnail", fallback: "sample.jpg", size: "200x200" %>
-    <%= f.attachment_field :image %>
+    <div class="d-flex flex-column align-items-center">
+      <%= attachment_image_tag post, :image, class: "img-fluid rounded img-thumbnail", fallback: "sample.jpg", size: "200x200" %>
+      <%= f.attachment_field :image %>
+    </div>
   </div>
 
   <div class="form-group">
@@ -30,10 +44,10 @@
   </div>
 
   <div class="actions">
-    <%= f.submit %>
+    <%= f.submit :class=>"btn btn-outline-light btn-dark btn-block" %>
   </div>
 <% end %>
-
+</div>
 
 <script>
 $(function(){
