@@ -89,7 +89,7 @@
           </div>
     <div class="row no-gutters">
       <div class="col-lg-3 mt-1 mb-1 pr-1 pl-1">
-        <%= attachment_image_tag post, :image, :fill, 180, 250, class: "card-img", fallback: "sample.jpg"%>
+        <%= attachment_image_tag post, :image, :fill, 100, 120, class: "card-img", fallback: "sample.jpg"%>
       </div>
         <div class="col-lg-9 mt-1">
           <h5 class="card-title"><%= render 'posts/tag_list', tag_list: post.tag_list %></h5>
@@ -121,12 +121,7 @@
             1
           <% end %>
         </div>
-        <% if post.user.id == current_user.id %>
-          <%= link_to '投稿を削除する', post, method: :delete, data: { confirm: '本当に削除しますか？' }, class: 'p-2 btn btn-danger' %>
           <%= link_to 'コメント', post, class: 'ml-auto p-2 btn btn-info' %>
-        <% else %>
-          <%= link_to 'コメント', post, class: 'ml-auto p-2 btn btn-info' %>
-        <% end %>
         </div>
         <div class="float-right">
           <i class="fas fa-book-reader faa-wrench animated" style="color: #000066;"></i>
