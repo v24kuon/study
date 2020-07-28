@@ -1,7 +1,6 @@
 <div class="container-login">
 
 <%= render 'devise/shared/flash_messages' %>
-<%= render 'devise/shared/error_messages', resource: @user %>
 
 <%= form_for(@user) do |f| %>
 
@@ -40,7 +39,7 @@
     <%= link_to '設定変更', edit_user_registration_path, class: 'btn btn-warning btn-block mb-4' %>
     <%= link_to "トップページ", root_path, class: 'btn btn-info btn-block mb-4' %>
   </div>
-
+</div>
 <script>
 $(function(){
     // inputのidから情報の取得

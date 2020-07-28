@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
   get '/search' => 'searches#search'
+  get 'users/:id/favorites' => 'users#favorite'
+  get '/about' => 'posts#about'
   resources :posts do
   resources :comments, only: [:create, :destroy]
   resource :favorites, only: [:create, :destroy]

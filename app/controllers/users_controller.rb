@@ -5,7 +5,10 @@ class UsersController < ApplicationController
 
   def show
  # ユーザーの全投稿
-  	@posts = @user.posts.page(params[:page]).reverse_order
+    if :created_at == :updated_at
+      @posts = @user.posts.page(params[:page]).order(created_at: :desc).per(8)
+    else @posts = @user.posts.page(params[:page]).order(updated_at: :desc).per(8)
+    end
     @total_hour = @user.posts.sum("hour + minutes/60")
  #グラフの表示用
     @period = params[:period]
@@ -25,6 +28,15 @@ class UsersController < ApplicationController
       else
         render 'edit'
       end
+  end
+
+  def favorite
+    @user = User.find_by(id: params[:id])
+    @favorite_count = Favorite.where(user_id: @user.id).count
+    if :created_at == :updated_at
+      @favorites = Favorite.where(user_id: @user.id).page(params[:page]).order(created_at: :desc)
+    else @favorites = Favorite.where(user_id: @user.id).page(params[:page]).order(updated_at: :desc)
+    end
   end
 
   private

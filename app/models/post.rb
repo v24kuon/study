@@ -17,25 +17,42 @@ class Post < ApplicationRecord
   validates :hour, length: { in: 0..23 }
  # 分の入力制限
   validates :minutes, length: { in: 0..59 }
- # もっと見るで表示する件数
-  paginates_per 5
-  # validates :body, :hour, :minutes, presence: true
+ # 時間か分に値が入っているか
+  validate :validHour
+  validate :validMinute
+ # URLのみ許可
+  validate :valid_url_update, on: :update
+  validate :valid_url, on: :create
+ # ソート機能
+  def self.favorite_sort
+    Post.left_joins(:favorites).select('posts.*, count(favorites.id) as favorites_count').group(:id).order(favorites_count: :desc).order(created_at: :desc)
+  end
 
-  def self.search(search, word)
-    if search == "forward_match"
-      @post = Post.where("body LIKE?","#{word}%")
-    elsif search == "backward_match"
-      @post = Post.where("body LIKE?","%#{word}")
-    elsif search == "perfect_match"
-      @post = Post.where("#{word}")
-    elsif search == "partial_match"
-      @post = Post.where("body LIKE?","%#{word}%")
-    else @post = Post.all
-    end
+  def self.comment_sort
+    Post.left_joins(:comments).select('posts.*, count(comments.id) as comments_count').group(:id).order(comments_count: :desc).order(created_at: :desc)
   end
 
  # 合計時間
   def self.sum_times
   	posts.sum("hour + minutes/60").round(1)
+  end
+ # 時間と分が0を防ぐ
+  def validHour
+    errors.add(:hour,"時間か分に1以上入力して下さい") if hour == 0 && minutes == 0
+  end
+  def validMinute
+    errors.add(:minutes,"時間か分に1以上入力して下さい") if hour == 0 && minutes == 0
+  end
+ # URLのみ許可
+  def valid_url
+    errors.add(:post_video,"正しいURLを入力して下さい")if !self.post_video.empty? && URI.regexp.match(@url).nil?
+  end
+  def initialize(params)
+    super
+    @url = self.post_video
+  end
+  def valid_url_update
+    errors.add(:post_video,"正しいURLを入力して下さい")if !self.post_video.empty? && URI.regexp.match(self.post_video).nil?
+    self.post_video = self.post_video.last(11)
   end
 end

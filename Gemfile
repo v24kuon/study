@@ -95,3 +95,10 @@ gem 'hirb'
 gem 'hirb-unicode'
 #タグのjqueryに使用
 gem "jquery-ui-rails"
+#テスト
+gem "pry-rails"
+#デプロイ用
+gem 'dotenv-rails'
+group :production do
+  gem 'mysql2'
+end
