@@ -26,18 +26,8 @@ class PostsController < ApplicationController
       @posts = Post.favorite_sort.page(params[:page]).per(8)
     elsif params[:keyword] == 'comments'
       @posts = Post.comment_sort.page(params[:page]).per(8)
-
-      # binding.pry
-
-  #     sort_posts_ids = Post.post_sort(params[:keyword], @posts_ids)
-  #     @posts_ids = sort_posts_ids.concat(@posts_ids)
-  #     @posts_ids = @posts_ids.uniq
-  #     @posts = Post.find(@posts_ids)
-  #     #ActiveRecord::Relationに変換できたらソート可能になる
-  #     @posts = Post.where(id: @post_ids).order("FIELD(id, #{@post_ids.join(',')})")
-  #     @posts = @posts.page(params[:page]).per(5)
     end
-
+ # ランキング表示
     @users = User.all
     @ranking_users = User.left_joins(:posts)
       .where(posts: { created_at: Time.current.beginning_of_month..Time.current.end_of_month })
@@ -81,7 +71,6 @@ class PostsController < ApplicationController
     url = params[:post][:post_video]
     @post.post_video = url.last(11)
     @post.user_id = current_user.id
-    # binding.pry
     if @post.update(
       body: post_params[:body],
       hour: post_params[:hour],
