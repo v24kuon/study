@@ -2,7 +2,7 @@
 
 <div class="container pt-3 mb-5 mt-5">
   <div class="row">
-    <div class="col-sm-12">
+    <div class="col-lg-12">
       <div class="card">
         <div class="card-img-top bg-light p-2">
           <%= attachment_image_tag(@user, :image, :fill, 80, 80, class: "rounded-circle", fallback: "sample.jpg", size:'80x80') %><br>
@@ -25,7 +25,7 @@
       </div>
       </div>
     </div>
-    <div class="col-sm-12">
+    <div class="col-lg-12">
       <div class="alert alert-info mb-5 mt-5 text-center" role="alert">
         <h2><B>このサイトに登録して<%= @total_hour.round(1) %> 時間の勉強したよ！</B></h2>
       </div>
@@ -113,8 +113,9 @@
           <% end %>
         </div>
         <% if @user.id == current_user.id %>
-          <%= link_to '投稿を削除する', post, method: :delete, data: { confirm: '本当に削除しますか？' }, class: 'p-2 btn btn-danger' %>
-          <%= link_to 'コメント', post, class: 'ml-auto p-2 btn btn-info' %>
+          <%= link_to '投稿削除', post, method: :delete, data: { confirm: '本当に削除しますか？' }, class: 'ml-auto p-2 btn btn-danger' %>
+          <%= link_to '編集', edit_post_path(post), class: 'ml-5 p-2 btn btn-success' %>
+          <%= link_to 'コメント', post, class: 'ml-5 p-2 btn btn-info' %>
         <% else %>
           <%= link_to 'コメント', post, class: 'ml-auto p-2 btn btn-info' %>
         <% end %>

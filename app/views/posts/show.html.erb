@@ -60,11 +60,6 @@
             1
           <% end %>
         </div>
-        <% if @post.user.id == current_user.id %>
-          <%= link_to '投稿を削除する', @post, method: :delete, data: { confirm: '本当に削除しますか？' }, class: 'p-2 btn btn-danger' %>
-          <%= link_to '編集する', edit_post_path(@post), class: 'ml-auto p-2 btn btn-info' %>
-        <% else %>
-        <% end %>
         </div>
         <div class="float-right">
           <i class="fas fa-book-reader faa-wrench animated" style="color: #000066;"></i>

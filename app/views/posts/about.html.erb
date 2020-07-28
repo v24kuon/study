@@ -3,7 +3,7 @@
 <div class="jumbotron jumbotron-fluid img-responsive pt-0" >
   <%= video_tag "/assets/videos/production ID_4763210.mp4", autoplay: true, loop: true, muted: true, class: 'video-content' %>
   <div class="container">
-    <div class="col-sm-9 ml-auto bg-rgba p-4 rounded">
+    <div class="col-lg-9 ml-auto bg-rgba p-4 rounded">
       <h1 class="display-4 font-weight-bold mb-4">Share Study</h1>
       <h2 class="lead font-weight-bold">勉強した時間は全てが宝物です。その知識、その時間共有しませんか？</h2>
   </div>
@@ -16,7 +16,7 @@
       <div class="swiper-slide"><%= image_tag 'gahag-0055973670.jpg', class: 'top_image'%></div>
       <div class="swiper-slide"><%= image_tag 'gahag-0063716434.jpg', class: 'top_image'%></div>
       <div class="swiper-slide"><%= image_tag 'gahag-0056407220.jpg', class: 'top_image'%></div>
-  </div>
+    </div>
 </div>
 <main>
   <section id="sec1" class="py-5 container">
@@ -24,17 +24,17 @@
     <div class="tab-content">
       <div id="tab1" class="tab-pane active">
           <div class="row">
-              <div class="col-sm-6 mb-3">
+              <div class="col-lg-6 mb-3">
                   <div class="row">
-                      <img class="col-sm-6 h-100 mb-3 mb-md-0" src="/assets/gahag-0119270185" >
+                      <%= image_tag 'gahag-0119270185.jpg', class: 'col-sm-6 h-100 mb-3 mb-md-0'%>
                       <div class="col-sm-6">
                           <h4 class="mt-0">1.勉強とは？</h4>
                           <p>広辞苑によると「学問や知識・技術などを身につけるために学ぶこと」と記載されています。しかしその過程は大半の人にとって辛く困難な道のりです。</p>
                       </div>
                   </div>
               </div>
-              <div class="col-sm-6 mb-3">
-                <div class="row"> <img class="col-sm-6 h-100 mb-3 mb-md-0" src="/assets/cheers-839865_1920" >
+              <div class="col-lg-6 mb-3">
+                <div class="row"> <%= image_tag 'cheers-839865_1920.jpg', class: 'col-sm-6 h-100 mb-3 mb-md-0'%>
                     <div class="col-sm-6">
                       <h4 class="mt-0">2.なぜ勉強するのか？</h4>
                       <p>それではなぜそんな辛い思いをして勉強するのか？それは幸せのためです。勉強を続けることによりその先に幸せがあるからです。</p>
@@ -43,8 +43,8 @@
               </div>
           </div>
           <div class="row">
-            <div class="col-sm-6 mb-3">
-              <div class="row"> <img class="col-sm-6 h-100 mb-3 mb-md-0" src="/assets/gahag-0007080899" >
+            <div class="col-lg-6 mb-3">
+              <div class="row"> <%= image_tag 'gahag-0007080899.jpg', class: 'col-sm-6 h-100 mb-3 mb-md-0'%>
                 <div class="col-sm-6">
                   <h4 class="mt-0">3.勉強を続けるには？</h4>
                   <p>目標を持つことも重要ですが勉強をする仲間と繋がり共有することも大切です。1人では辛いことも協力して乗り越えることが出来ます。</p>
@@ -52,8 +52,8 @@
               </div>
             </div>
             <div class="col-lg-6 mb-3">
-              <div class="row"> <img class="col-12 col-md-6 h-100 mb-3 mb-md-0" src="/assets/adventure-1807524_1920" >
-                <div class="col-md-6">
+              <div class="row"> <%= image_tag 'adventure-1807524_1920.jpg', class: 'col-sm-6 h-100 mb-3 mb-md-0'%>
+                <div class="col-sm-6">
                   <h3 class="mt-0">4.そのためには？</h3>
                   <p>このサイトで情報を共有しお互い助け合いながらそれぞれの目標に向かって、勉強を継続していくツールとしてご活用いただけましたら幸いです。</p>
                 </div>
@@ -61,181 +61,36 @@
             </div>
           </div>
       </div>
+    </div>
+  </section>
     <hr>
     <section id="sec2" class="py-5 container">
-        <h2 class="font-weight-bold text-center ttl-bdr">MAIN TITLE</h2>
+        <h2 class="font-weight-bold text-center ttl-bdr">このサイトの使い方</h2>
         <div class="row py-4">
-            <div class="col-md-7 text-center mb-4">
-                <h3 class="h1 font-weight-bold">TITLE</h3>
-                <p class="h2 text-muted">With faded secondary text</p>
-                <p class="lead text-left">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo.</p>
-                <a href="sample/index.html" type="button" class="btn-secondary btn-lg">Read More</a>
+            <div class="col-lg-7 text-center mb-4">
+                <h3 class="h1 font-weight-bold">1.登録しよう!!</h3>
+                <p class="lead mt-5" style="line-height: 2.0;">本サイトは会員登録をしない場合は<br>閲覧のみが可能です。<br>自ら情報を発信したり他の人とやり取りするなど<br>機能を全て使う場合は会員登録をお願いします。<br>登録にはSNS認証も使えますので是非ご利用ください。</p>
             </div>
-            <div class="col-md-5"> <img class="card-img-top rounded-0" src="img/img-01.jpg" alt="カード画像のキャプション1"> </div>
+            <div class="col-lg-5"> <%= image_tag 'subscribe-3534409_1920.jpg', class: 'card-img-top rounded-0'%></div>
+        </div>
+        <hr>
+        <div class="row py-4 ml-1">
+            <div class="col-lg-7 text-center order-md-2 mb-4">
+                <h3 class="h1 font-weight-bold">2.投稿しよう!!</h3>
+                <p class="lead mt-5" style="line-height: 2.0;">会員登録後はヘッダーから新規投稿を行いましょう。<br>内容は勉強したことや共有したいこと<br>分からなかったことなどを書いて<br>みんなと交流することをお勧めします。<br>また他の人の投稿にいいねやコメントを残して<br>他の人と繋がりを作りましょう!</p>
+            </div>
+            <div class="col-lg-5 order-md-1"> <%= image_tag 'post-its-1875512_1920.jpg', class: 'card-img-top rounded-0'%> </div>
         </div>
         <hr>
         <div class="row py-4">
-            <div class="col-md-7 text-center order-md-2 mb-4">
-                <h3 class="h1 font-weight-bold">TITLE</h3>
-                <p class="h2 text-muted">With faded secondary text</p>
-                <p class="lead text-left">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo.</p>
-                <a href="sample/index.html" type="button" class="btn-secondary btn-lg mb-3">Read More</a>
+            <div class="col-lg-7 text-center mb-4">
+                <h3 class="h1 font-weight-bold">3.投稿を見よう!!</h3>
+                <p class="lead mt-5" style="line-height: 2.0;">見るという事は大切で他の人の投稿を見れば<br>知識を得るだけでなく違う考え方も学ぶことができます。<br>マイページを見て過去の投稿を振り返り復習できます。<br>グラフを見ると今までの頑張りを見ることができ<br>今後の計画にも活用することが出来ます。<br>また毎月更新される勉強時間のランキングで<br>上位を目指しモチベーションを保つことが出来ます。<br>このように投稿することだけが重要ではなく<br>投稿が苦手な人でも見るだけで自分の成長に繋がります。</p>
             </div>
-            <div class="col-md-5 order-md-1"> <img class="card-img-top rounded-0" src="img/img-02.jpg" alt="カード画像のキャプション2"> </div>
-        </div>
-        <hr>
-        <div class="row py-4">
-            <div class="col-md-7 text-center mb-4">
-                <h3 class="h1 font-weight-bold">TITLE</h3>
-                <p class="h2 text-muted">With faded secondary text</p>
-                <p class="lead text-left">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo.</p>
-                <a href="sample/index.html" type="button" class="btn-secondary btn-lg mb-3">Read More</a>
-            </div>
-            <div class="col-md-5"> <img class="card-img-top rounded-0" src="img/img-03.jpg" alt="カード画像のキャプション3"> </div>
+            <div class="col-lg-5"> <%= image_tag 'gahag-0005407561.jpg', class: 'card-img-top rounded-0'%> </div>
         </div>
     </section>
-    <!------------------------------------------------------------------------>
-    <section id="sec3" class="p-0">
-        <div class="container">
-            <div class="col-12 col-md-5 bg-dark rounded">
-                <div class="text-center text-white py-3 py-lg-5 px-0 px-lg-5">
-                    <h2>STAFF 募集</h2>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo</p>
-                    <button class="btn btn-light btn-block">詳細はこちら</button> </div>
-                </div>
-            </div>
-        </section>
-
-        <!------------------------------------------------------------------------>
-
-        <section id="sec4" class="container py-5">
-            <h2 class="font-weight-bold text-center ttl-bdr">BUSINESS DAYS &amp; NEWS</h2>
-            <div class="row pt-4">
-                <div class="col-12 col-lg-6 mb-3">
-                    <table class="mb-1">
-                        <tr>
-                            <th colspan="7"><h3 class="text-center">&#8810;&emsp;2018年10月&emsp;&#8811;</h3></th>
-                        </tr>
-                        <tr>
-                            <th>日</th>
-                            <th>月</th>
-                            <th>火</th>
-                            <th>水</th>
-                            <th>木</th>
-                            <th>金</th>
-                            <th>土</th>
-                        </tr>
-                        <tr>
-                            <td></td>
-                            <td>1</td>
-                            <td>2</td>
-                            <td>3</td>
-                            <td>4</td>
-                            <td>5</td>
-                            <td>6</td>
-                        </tr>
-                        <tr>
-                            <td>7</td>
-                            <td>8</td>
-                            <td>9</td>
-                            <td>10</td>
-                            <td>11</td>
-                            <td>12</td>
-                            <td>13</td>
-                        </tr>
-                        <tr>
-                            <td>14</td>
-                            <td>15</td>
-                            <td>16</td>
-                            <td>17</td>
-                            <td style="background-color:#F00; color: #fff;">18</td>
-                            <td>19</td>
-                            <td>20</td>
-                        </tr>
-                        <tr>
-                            <td>21</td>
-                            <td>22</td>
-                            <td>23</td>
-                            <td>24</td>
-                            <td>25</td>
-                            <td>26</td>
-                            <td>27</td>
-                        </tr>
-                        <tr>
-                            <td>28</td>
-                            <td>29</td>
-                            <td>30</td>
-                            <td>31</td>
-                            <td>　</td>
-                            <td>　</td>
-                            <td>　</td>
-                        </tr>
-                    </table>
-                    <p>※ 赤色：店舗休業日</p>
-                </div>
-                <div class="col-12 col-lg-6">
-                    <ul class="list-unstyled">
-                        <li>
-                            <div class="d-md-inline-flex align-items-start">
-                                <h4 class="border rounded bg-secondary text-white py-1 px-2 mr-3">2018.5.30</h4>
-                                <h5>The European languages are members of the same family. </h5>
-                            </div>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </p>
-                        </li>
-                        <li>
-                            <div class="d-md-inline-flex align-items-start">
-                                <h4 class="border rounded bg-secondary text-white py-1 px-2 mr-3">2018.5.30</h4>
-                                <h5>The European languages are members of the same family. </h5>
-                            </div>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </p>
-                        </li>
-                        <li>
-                            <div class="d-md-inline-flex align-items-start">
-                                <h4 class="border rounded bg-secondary text-white py-1 px-2 mr-3">2018.5.30</h4>
-                                <h5>The European languages are members of the same family. </h5>
-                            </div>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </p>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </section>
-        <hr>
-        <!------------------------------------------------------------------------>
-        <section class="container py-5" id="sec5">
-            <div class="row flex-row-reverse">
-                <div class="col-12 col-lg-6">
-                    <img src="img/template-logo01.png" alt="footer logo" class="footer-logo mb-3 d-block d-md-none">
-                    <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d3240.830828060774!2d139.7648629!3d35.6811673!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x60188bfbd89f700b%3A0x277c49ba34ed38!2z5p2x5Lqs6aeF!5e0!3m2!1sja!2sjp!4v1540728928735"  frameborder="0" style="border:0" allowfullscreen></iframe>
-                </div>
-                <div class="col-12 col-lg-6"><img src="img/template-logo01.png" alt="footer logo" class="footer-logo mb-3 d-none d-md-block">
-                    <dl class="text-secondary text-left mb-0">
-                        <dt class="float-md-left">住所：</dt><dd>東京都港区芝8丁目0-0 ビジネスビル1F</dd>
-                        <dt class="float-md-left">営業時間：</dt><dd>11：00〜24：00（LO. 23:00）</dd>
-                        <dt class="float-md-left">アクセス：</dt>
-                        <dd>JR「浜松町」下車　徒歩12分、都営地下鉄三田線「芝公園」（I05）下車　徒歩2分<br>
-                        都営地下鉄浅草線・大江戸線「大門」（A09･E20）下車　徒歩5分</dd>
-                        <dt class="float-md-left">定休⽇：</dt><dd>⽇曜⽇</dd>
-                    </dl>
-                    <p class="text-left">※ Their separate existence is a myth. For science, music, sport, etc, Europe uses the same vocabulary.</p>
-                    <div class="social mb-3 text-center">
-                        <!-- Twitter  -->
-                        <a href="http://twitter.com/share?url=あなたのサイトURL&amp;text=エンコードした説明文" onclick="window.open(this.href, 'twitter_tweet', 'width=550, height=450,personalbar=0,toolbar=0,scrollbars=1,resizable=1'); return false;"><img src="img/sns.svg" alt="Twitter logo" class="mx-1"></a>
-                        <!-- Facebook   -->
-                        <a href="https://www.facebook.com/sharer/sharer.php?u=あなたのサイトURL" onclick="window.open(this.href, 'fb_window', 'width=450, height=300, menubar=no, toolbar=no, scrollbars=yes'); return false;" target="blank"><img src="img/sns.svg" alt="Facebook logo" class="mx-1"></a> </div>
-                        <div class="border text-center p-2 rounded">
-                            <p class="m-0">お電話でのご予約はこちら</p>
-                            <p class="tel m-0 h3">03-1234-5678</p>
-                        </div>
-                    </div>
-                </div>
-            </section>
-            <nav>
-                <p id="page-top"><a href="#">PAGE TOP</a></p>
-            </nav>
-          </div>
-        </section>
-      </main>
+</main>
 <script>
 var sliderSelector = '.swiper-container',
     isMove = false,
@@ -323,4 +178,3 @@ var sliderSelector = '.swiper-container',
 mySwiper.init();
 Resources
 </script>
-</body>
