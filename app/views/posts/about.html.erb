@@ -1,15 +1,17 @@
 <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
 
-<div class="jumbotron jumbotron-fluid img-responsive pt-0" >
-  <%= video_tag "/assets/videos/production ID_4763210.mp4", autoplay: true, loop: true, muted: true, class: 'video-content' %>
+<div class="jumbotron jumbotron-fluid img-responsive p-0">
   <div class="container video-bar">
-    <div class="col-lg-9 ml-auto bg-rgba p-4 rounded">
+    <div class="col-lg-9 ml-auto bg-rgba p-4 rounded text-light">
       <h1 class="display-4 font-weight-bold mb-4">Share Study</h1>
       <h2 class="lead font-weight-bold">勉強した時間は全てが宝物です。その知識、その時間共有しませんか？</h2>
+    </div>
+  </div>
+  <div class="video-content">
+    <%= video_tag "/assets/videos/productionid_4763210.mp4", autoplay: true, loop: true, muted: true, class: 'book-video' %>
   </div>
 </div>
-</div>
-<div class="container swiper-container">
+<div class="container swiper-container" style="margin-top: 450px;">
     <div class="swiper-wrapper">
       <div class="swiper-slide"><%= image_tag 'gahag-0119446360.jpg', class: 'top_image'%></div>
       <div class="swiper-slide"><%= image_tag 'gahag-0093274470.jpg', class: 'top_image'%></div>
