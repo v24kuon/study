@@ -1,0 +1,17 @@
+<% comments.each do |comment| %>
+<div class="card border-warning my-sm-2 mb-sm-3 ">
+  <h5 class="card-header border-warning">
+    <% unless comment.id.nil? %>
+    <p><%= attachment_image_tag comment.user, :image, :fill, 45, 45, class: "rounded-circle", fallback: "sample.jpg", size:'45x45'%>
+    <%= link_to "#{comment.user.name}さん", user_path(comment.user.id) %></p>
+  </h5>
+  <div class="card-body">
+    <h5 class="card-title">コメント</h5>
+    <p class="card-text"><%= comment.content %></p>
+    <% if comment.user == current_user %>
+      <p><%= link_to 'コメントを削除する', post_comment_path(comment.post_id, comment.id), method: :delete, remote: true, class: 'btn btn-warning float-right' %></p>
+    <% end %>
+  </div>
+</div>
+  <% end %>
+<% end %>

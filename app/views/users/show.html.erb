@@ -1,0 +1,135 @@
+<%= render 'devise/shared/flash_messages' %>
+
+<div class="container pt-3 mb-5 mt-5">
+  <div class="row">
+    <div class="col-sm-12">
+      <div class="card">
+        <div class="card-img-top bg-light p-2">
+          <%= attachment_image_tag(@user, :image, :fill, 80, 80, class: "rounded-circle", fallback: "sample.jpg", size:'80x80') %><br>
+          ニックネーム: <%= @user.name %>
+          <% if @user.id == current_user.id %>
+            <%= link_to("プロフィールを変更する", "/users/#{@user.id}/edit", { class: "btn btn-warning float-right "}) %>
+          <% end %>
+        </div>
+      <div class="card-body">
+        <h5 class="card-title">自己紹介</h5>
+        <p class="card-text"><%= simple_format(h(@user.introduction)) %></p>
+      </div>
+      <ul class="list-group list-group-flush">
+        <li class="list-group-item">登録日: <%= @user.created_at.strftime('%Y/%m/%d') %></li>
+        <li class="list-group-item">職業: <%= @user.occupation %></li>
+        <li class="list-group-item"><%= link_to("お気に入りの投稿", "/users/#{@user.id}/favorites") %>:<span class="badge badge-primary ml-2"><%= Favorite.where(user_id: @user.id).count %></span></li>
+      </ul>
+      <div class="card-body mb-5">
+        タグ<br> <%= render 'users/tag_list', tag_list: @user.tag_list %>
+      </div>
+      </div>
+    </div>
+    <div class="col-sm-12">
+      <div class="alert alert-info mb-5 mt-5 text-center" role="alert">
+        <h2><B>このサイトに登録して<%= @total_hour.round(1) %> 時間の勉強したよ！</B></h2>
+      </div>
+      <div class="container pb-4 mb-5 mt-4">
+        <div class="row">
+          <span class="figure-sum-text col-sm ml-5">
+            <div><B>合計：<em class="figure-sum"><%= sum_times.round(1) %></em> 時間</B></div>
+            <B>（<em class="figure-sum"><%= to_hour %></em> 分）</B>
+          </span>
+          <div class="dropdown col-sm">
+            <button type="button" class="btn btn-secondary dropdown-toggle ml-5" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <%= @user.posts_period(@period).keys.first %> - <%= @user.posts_period(@period).keys.last %>
+            </button>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+              <%= link_to "週間", user_path(@user, period: "week"), class: "dropdown-item" %>
+              <%= link_to "月間", user_path(@user, period: "month"), class: "dropdown-item" %>
+              <%= link_to "年間", user_path(@user, period: "year"), class: "dropdown-item" %>
+            </div>
+          </div>
+        </div>
+      </div>
+      <%= column_chart @chart,colors: ['#CCCCFF'],xtitle: "日付", ytitle: "時間"%>
+    </div>
+  </div>
+</div>
+
+
+<div class="container">
+  <div class="row">
+    <% @posts.each do |post| %>
+      <div class="col-sm-12">
+        <div class="card mb-4 border-secondary">
+          <div class="card-header border-secondary">
+            <%= link_to(post.user) do %>
+              <%= attachment_image_tag post.user, :image, :fill, 60, 60, class: "rounded-circle", fallback: "sample.jpg", size:'50x50'%>
+            <% end %>
+            <%= link_to post.user.name, post.user %>
+            <div class="float-right">
+              <% if post.created_at == post.updated_at %>
+              投稿日:<%= post.created_at.strftime('%Y/%m/%d') %>
+            <% else %>
+              更新日:<%= post.updated_at.strftime('%Y/%m/%d') %>
+            <% end %>
+            <font color="#808080">
+              <% if post.created_at == post.updated_at %>
+                <%= time_ago_in_words(post.created_at) %>前
+              <% else %>
+                <%= time_ago_in_words(post.updated_at) %>前
+              <% end %>
+            </font>
+            </div>
+          </div>
+    <div class="row no-gutters">
+      <div class="col-sm-3 mt-1 mb-1 pr-1 pl-1">
+        <%= attachment_image_tag post, :image, :fill, 180, 250, class: "card-img", fallback: "sample.jpg"%>
+      </div>
+        <div class="col-sm-9 mt-1">
+          <h5 class="card-title"><%= render 'posts/tag_list', tag_list: post.tag_list %></h5>
+          <p class="card-text"><%= simple_format(h(post.body)) %></p>
+        </div>
+      </div>
+      <div class="card-footer text-muted border-secondary">
+        <div class="d-flex">
+          <div class="p-2">
+            <div id="favorites_buttons_<%= post.id %>">
+              <%= render partial: 'favorites/like', locals: { post: post} %>
+            </div>
+          </div>
+        <div class="p-2">
+          <% if post.comments.empty? %>
+            <i class="fas fa-comment-dots faa-float animated" style="color: #808080;"></i>
+            <%= post.comments.count %>
+          <% else %>
+            <i class="fas fa-comment-dots faa-float animated" style="color: #FFD700;"></i>
+            <%= post.comments.count %>
+          <% end %>
+        </div>
+        <div class="p-2">
+          <% if post.post_video.empty? %>
+            <i class="fab fa-youtube faa-tada animated" style="color: #808080;"></i>
+            0
+          <% else %>
+            <i class="fab fa-youtube faa-tada animated" style="color: #FF0000;"></i>
+            1
+          <% end %>
+        </div>
+        <% if @user.id == current_user.id %>
+          <%= link_to '投稿を削除する', post, method: :delete, data: { confirm: '本当に削除しますか？' }, class: 'p-2 btn btn-danger' %>
+          <%= link_to 'コメント', post, class: 'ml-auto p-2 btn btn-info' %>
+        <% else %>
+          <%= link_to 'コメント', post, class: 'ml-auto p-2 btn btn-info' %>
+        <% end %>
+        </div>
+        <div class="float-right">
+          <i class="fas fa-book-reader faa-wrench animated" style="color: #000066;"></i>
+          <%= total_hour(post.hour,post.minutes) %>
+        </div>
+      </div>
+  </div>
+</div>
+    <% end %>
+  </div>
+</div>
+
+<div class="d-flex justify-content-center">
+<%= paginate @posts %>
+</div>

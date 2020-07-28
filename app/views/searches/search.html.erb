@@ -1,0 +1,144 @@
+<%= render 'devise/shared/flash_messages' %>
+
+<!--ユーザー一覧 -->
+<% if @range == '1' %>
+
+<div class="container mt-5">
+  <div class="row">
+    <div class="col-sm-12">
+      <div class="card border-primary mb-3">
+  <div class="card-header text-center">
+    <% if @users.empty? %>
+      <h2>該当するユーザーはいませんでした。</h2>
+    <% else %>
+      <h2><%= @users.total_count %>人のユーザーが見つかりました!!</h2>
+    <% end %>
+  </div>
+    <div class="card-body text-primary">
+    <table class="table">
+      <thead>
+        <tr>
+          <th>アイコン</th>
+          <th>ユーザー名</th>
+          <th>職業</th>
+          <th>詳細</th>
+        </tr>
+      </thead>
+  <% @users.each do |user| %>
+      <tbody>
+          <tr>
+            <td width="10%">
+              <%= attachment_image_tag(user, :image, :fill, 70, 70, fallback: "sample.jpg", size:'70x70') %>
+            </td>
+            <td>
+              <%= link_to user.name, user %>
+            </td>
+            <td>
+              <%= user.occupation %>
+            </td>
+            <td >
+              <%= link_to '詳細', user, class: 'ml-auto p-2 btn btn-info' %>
+            </td>
+          </tr>
+      </tbody>
+  <% end %>
+    </table>
+    </div>
+</div>
+    </div>
+  </div>
+</div>
+
+<div class="d-flex justify-content-center">
+  <%= paginate @users %>
+</div>
+
+<% else %>
+
+<div class="container mt-5">
+
+<% if @posts.empty? %>
+  <h2>該当する投稿はありませんでした</h2>
+<% else %>
+  <h2><%= @posts.total_count %>件の投稿が見つかりました!!</h2>
+<% end %>
+
+  <div class="row mt-5">
+    <% @posts.each do |post| %>
+      <div class="col-sm-6">
+        <div class="card mb-4 border-secondary">
+          <div class="card-header border-secondary">
+            <%= link_to(post.user) do %>
+              <%= attachment_image_tag post.user, :image, :fill, 60, 60, class: "rounded-circle", fallback: "sample.jpg", size:'50x50'%>
+            <% end %>
+            <%= link_to post.user.name, post.user %>
+            <div class="float-right">
+              <% if post.created_at == post.updated_at %>
+              投稿日:<%= post.created_at.strftime('%Y/%m/%d') %>
+            <% else %>
+              更新日:<%= post.updated_at.strftime('%Y/%m/%d') %>
+            <% end %>
+            <font color="#808080">
+              <% if post.created_at == post.updated_at %>
+                <%= time_ago_in_words(post.created_at) %>前
+              <% else %>
+                <%= time_ago_in_words(post.updated_at) %>前
+              <% end %>
+            </font>
+            </div>
+          </div>
+    <div class="row no-gutters">
+      <div class="col-sm-3 mt-1 mb-1 pr-1 pl-1">
+        <%= attachment_image_tag post, :image, :fill, 180, 250, class: "card-img", fallback: "sample.jpg"%>
+      </div>
+        <div class="col-sm-9 mt-1">
+          <h5 class="card-title"><%= render 'posts/tag_list', tag_list: post.tag_list %></h5>
+          <p class="card-text"><%= simple_format(h(post.body)) %></p>
+        </div>
+      </div>
+      <div class="card-footer text-muted border-secondary">
+        <div class="d-flex">
+          <div class="p-2">
+            <div id="favorites_buttons_<%= post.id %>">
+              <%= render partial: 'favorites/like', locals: { post: post} %>
+            </div>
+          </div>
+        <div class="p-2">
+          <% if post.comments.empty? %>
+            <i class="fas fa-comment-dots faa-float animated" style="color: #808080;"></i>
+            <%= post.comments.count %>
+          <% else %>
+            <i class="fas fa-comment-dots faa-float animated" style="color: #FFD700;"></i>
+            <%= post.comments.count %>
+          <% end %>
+        </div>
+        <div class="p-2">
+          <% if post.post_video.empty? %>
+            <i class="fab fa-youtube faa-tada animated" style="color: #808080;"></i>
+            0
+          <% else %>
+            <i class="fab fa-youtube faa-tada animated" style="color: #FF0000;"></i>
+            1
+          <% end %>
+        </div>
+        <% if post.user.id == current_user.id %>
+          <%= link_to '投稿を削除する', post, method: :delete, data: { confirm: '本当に削除しますか？' }, class: 'p-2 btn btn-danger' %>
+          <%= link_to 'コメント', post, class: 'ml-auto p-2 btn btn-info' %>
+        <% else %>
+          <%= link_to 'コメント', post, class: 'ml-auto p-2 btn btn-info' %>
+        <% end %>
+        </div>
+        <div class="float-right">
+          <i class="fas fa-book-reader faa-wrench animated" style="color: #000066;"></i>
+          <%= total_hour(post.hour,post.minutes) %>
+        </div>
+      </div>
+  </div>
+</div>
+    <% end %>
+  </div>
+</div>
+<div class="d-flex justify-content-center">
+  <%= paginate @posts %>
+</div>
+<% end %>

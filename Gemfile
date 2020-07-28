@@ -79,3 +79,26 @@ gem 'dotenv-rails'
 gem 'bootstrap'
 gem 'jquery-rails'
 gem 'devise-bootstrap-views'
+#画像投稿用
+gem "refile", require: "refile/rails", github: 'manfe/refile'
+gem "refile-mini_magick"
+#ページネーション
+gem 'kaminari'
+#グラフ表示
+gem "chartkick"
+#タグ付け
+gem 'acts-as-taggable-on'
+#検索機能
+gem 'ransack'
+#ターミナルを見やすくする
+gem 'hirb'
+gem 'hirb-unicode'
+#タグのjqueryに使用
+gem "jquery-ui-rails"
+#テスト
+gem "pry-rails"
+#デプロイ用
+gem 'dotenv-rails'
+group :production do
+  gem 'mysql2'
+end

@@ -9,7 +9,6 @@
  * compiled file so the styles you add here take precedence over styles defined in any other CSS/SCSS
  * files in this directory. Styles in this file should be added after the last require_* statement.
  * It is generally better to create a new file per style scope.
- *
  */
 
 @import "bootstrap";
@@ -30,4 +29,59 @@
 
 .alert-alert {
   @extend .alert-danger;
+}
+
+// バリデーションの赤枠
+
+.field_with_errors {
+  display: contents;
+  input, textarea, select, collection_select {
+    @extend .is-invalid;
+  }
+}
+
+a:hover { text-decoration: none;}
+a { color: #000000; }
+
+big {
+  @extend .alert-danger;
+}
+
+#view_more {
+  width:200px;
+  font-size:18px;
+  font-weight:bold;
+  text-decoration:none;
+  display:block;
+  text-align:center;
+  padding:8px 0 10px;
+  background-color:#EEEEEE;
+  border-radius:25px;
+  box-shadow:2px 2px #555;
+  margin-bottom: 20px;
+}
+.top_image {
+  width:100%;
+  max-width: 100%;
+  height: auto;
+}
+.wrapper{
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+footer{
+  width: 100%;
+  background-color: #89c7de;
+  color: #fff;
+  text-align: center;
+  padding: 20px 0;
+  margin-top: auto;
+}
+
+.video-content {
+  margin: 0;
+  width: 100%;
+  index: -1;
 }

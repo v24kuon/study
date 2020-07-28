@@ -1,0 +1,57 @@
+<div class="container-login">
+
+<%= render 'devise/shared/flash_messages' %>
+
+<%= form_for(@user) do |f| %>
+
+  <div class="form-group" id="user_image">
+    <%= attachment_image_tag @user, :image, class: "img-fluid rounded img-thumbnail", fallback: "sample.jpg", size: "200x200" %>
+    <%= f.attachment_field :image %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :name %>
+    <%= f.text_field :name, autofocus: true, autocomplete: 'name', class: 'form-control',required: true %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :introduction %>
+    <%= f.text_area :introduction, autofocus: true, autocomplete: 'introduction', class: 'form-control', style: "height: 150px;" %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :occupation %>
+    <%= f.select :occupation, [["小学生", "小学生"], ["中学生", "中学生"], ["高校生", "高校生"], ["専門学校・大学生", "専門学校・大学生"],["その他・社会人", "その他・社会人"]], {prompt: "-- 選択してください --"},class: 'custom-select',required: true %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :tag_list, 'タグをカンマ区切りで入力' %>
+    <%= f.text_field :tag_list, value: @user.tag_list.join(','), "data-role" => "tagsinput", class: "form-control" %>
+  </div>
+
+  <div class="form-group">
+    <%= f.submit "更新", class: 'btn btn-success btn-block' %>
+  </div>
+<% end %>
+
+  <hr class="border-info my-5">
+  <div class="form-group">
+    <%= link_to '設定変更', edit_user_registration_path, class: 'btn btn-warning btn-block mb-4' %>
+    <%= link_to "トップページ", root_path, class: 'btn btn-info btn-block mb-4' %>
+  </div>
+</div>
+<script>
+$(function(){
+    // inputのidから情報の取得
+    $('#user_image').on('change', function (e) {
+// ここから既存の画像のurlの取得
+    var reader = new FileReader();
+    reader.onload = function (e) {
+        $(".image").attr('src', e.target.result);
+    }
+// ここまで
+    reader.readAsDataURL(e.target.files[0]); //取得したurlにアップロード画像のurlを挿入
+});
+});
+
+</script>

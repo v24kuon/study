@@ -1,0 +1,3 @@
+$("#comments_area").html("<%= j(render 'index', { comments: @comment.post.comments.reverse_order }) %>")
+$("#comment_count").html("<i class=\"fas fa-comment-dots faa-float animated\" style=\"color: #FFD700;\"></i><%= @post.comments.count %>")
+$("textarea").val('')

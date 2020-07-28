@@ -1,0 +1,17 @@
+<% if user_signed_in? %>
+<% if post.favorited_by?(current_user) %>
+  いいね <%=link_to post_favorites_path(post.id), method: :delete, remote: true do %>
+  <i class="fa fa-heart faa-pulse animated" aria-hidden="true" style="color: red;"></i>
+  <%=post.favorites.count%>
+  <% end %>
+<% else %>
+  いいね <%=link_to post_favorites_path(post.id), method: :post, remote: true do %>
+  <i class="fa fa-heart faa-pulse animated" aria-hidden="true"></i>
+  <%=post.favorites.count%>
+<% end %>
+<% end %>
+<% else %>
+  いいね
+  <i class="fa fa-heart faa-pulse animated" aria-hidden="true" style="color: red;"></i>
+  <%= post.favorites.count %>
+<% end %>
