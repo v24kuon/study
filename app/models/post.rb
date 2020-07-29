@@ -22,8 +22,8 @@ class Post < ApplicationRecord
   validate :validMinute
  # URLのみ許可
   validate :valid_url_update, on: :update
-  validates :post_video, length: { is: 11,message: '正しいURLを入力して下さい' }, on: :update
   validate :valid_url, on: :create
+
  # ソート機能
   def self.favorite_sort
     Post.left_joins(:favorites).select('posts.*, count(favorites.id) as favorites_count').group(:id).order(favorites_count: :desc).order(created_at: :desc)
@@ -48,12 +48,19 @@ class Post < ApplicationRecord
   def valid_url
     errors.add(:post_video,"正しいURLを入力して下さい")if !self.post_video.empty? && URI.regexp.match(@url).nil?
   end
+
   def initialize(params)
     super
     @url = self.post_video
   end
+
   def valid_url_update
-    errors.add(:post_video,"正しいURLを入力して下さい")if post_video == 11 && !self.post_video.empty? && URI.regexp.match(self.post_video).nil?
-    self.post_video = self.post_video.last(11)
+    if post_video.size == 11 || post_video.empty?
+      return
+    elsif post_video.present? && URI.regexp.match(self.post_video).present?
+      return self.post_video = post_video.last(11)
+    end
+
+    errors.add(:post_video,"正しいURLを入力して下さい")
   end
 end
