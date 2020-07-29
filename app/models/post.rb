@@ -22,6 +22,7 @@ class Post < ApplicationRecord
   validate :validMinute
  # URLのみ許可
   validate :valid_url_update, on: :update
+  validates :post_video, length: { is: 11,message: '正しいURLを入力して下さい' }, on: :update
   validate :valid_url, on: :create
  # ソート機能
   def self.favorite_sort
@@ -52,7 +53,7 @@ class Post < ApplicationRecord
     @url = self.post_video
   end
   def valid_url_update
-    errors.add(:post_video,"正しいURLを入力して下さい")if !self.post_video.empty? && URI.regexp.match(self.post_video).nil?
+    errors.add(:post_video,"正しいURLを入力して下さい")if post_video == 11 && !self.post_video.empty? && URI.regexp.match(self.post_video).nil?
     self.post_video = self.post_video.last(11)
   end
 end
