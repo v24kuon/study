@@ -10,11 +10,11 @@ class PostsController < ApplicationController
     else
       @posts = Post.order(updated_at: :desc).page(params[:page]).per(8)
     end
- # 年代別の表示
+    # 年代別の表示
     @occupations = '小学生','中学生','高校生','専門学校・大学生','その他・社会人'
     if params[:occupation_name].present?
       @posts = @posts.joins(:user).where(users: {occupation: params[:occupation_name]}).page(params[:page])
- # タグ検索
+    # タグ検索
     elsif params[:tag_user].present?
       @search = @posts.ransack(params[:q])
       @users = User.tagged_with("#{params[:tag_user]}")
@@ -27,7 +27,7 @@ class PostsController < ApplicationController
     elsif params[:keyword] == 'comments'
       @posts = Post.comment_sort.page(params[:page]).per(8)
     end
- # ランキング表示
+    # ランキング表示
     @users = User.all
     @ranking_users = User.left_joins(:posts)
       .where(posts: { created_at: Time.current.beginning_of_month..Time.current.end_of_month })
@@ -40,6 +40,8 @@ class PostsController < ApplicationController
   def show
     @comment = Comment.new
     @comments = @post.comments.order(created_at: :desc)
+    @comments_count = @comments.count
+    @comments_count_class = (@comments_count == 0)? "comments-none" : "comments-exist"
   end
 
 
@@ -54,7 +56,7 @@ class PostsController < ApplicationController
 
   def create
     @post = Post.new(post_params)
- # YouTube読み込み用
+    # YouTube読み込み用
     url = params[:post][:post_video]
     @post.post_video = url.last(11)
     @post.user_id = current_user.id
@@ -67,7 +69,7 @@ class PostsController < ApplicationController
 
 
   def update
- # YouTube読み込み用
+    # YouTube読み込み用
     url = params[:post][:post_video]
     @post.post_video = url.last(11)
     @post.user_id = current_user.id
