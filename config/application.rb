@@ -13,6 +13,7 @@ module Study
     config.i18n.default_locale = :ja
     config.time_zone = 'Asia/Tokyo'
     config.active_record.default_timezone = :local
+    config.paths.add 'lib', eager_load: true
     config.i18n.load_path += Dir[Rails.root.join('config', 'locales', '**', '*.yml').to_s]
     config.action_view.field_error_proc = Proc.new do |html_tag, instance|
       if instance.kind_of?(ActionView::Helpers::Tags::Label)
