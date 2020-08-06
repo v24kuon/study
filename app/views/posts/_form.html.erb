@@ -51,15 +51,15 @@
 <% end %>
 
   <p>読み取った内容がボックスに表示されます</p>
-  <textarea class="form-control mb-5" id="result" style="height: 200px;" disabled></textarea>
+  <textarea class="form-control mb-5" id="result" style="height: 200px;" placeholder="勉強した内容を読み込みたい時はフォームから画像を選択して下さい。文字を自動認識してここに表示します。手書きでも大丈夫です" disabled></textarea>
     <div class="input-group">
       <div class="custom-file">
         <input type="file" id="ocr_image" class="custom-file-input" accept="image/jpeg, image/png">
-        <label class="custom-file-label" for="ocr_image" data-browse="参照">読み取り...(ここにドロップもできます)</label>
+        <label class="custom-file-label" for="ocr_image" data-browse="参照">読み込み...(ここにドロップもできます)</label>
       </div>
       <div class="input-group-append mb-3">
         <button type="button" class="btn btn-outline-secondary input-group-text" id="inputFileReset">取消</button>
-        <button class="btn btn-outline-secondary input-group-text" id="ocr">読み込み</button>
+        <button class="btn btn-outline-secondary input-group-text" id="ocr">読み込む</button>
       </div>
     </div>
 </div>
