@@ -25,6 +25,10 @@
       <%= f.number_field :minutes, class: "form-control", min: 0, max: 59, placeholder: "整数で入力",required: true %>
     </div>
   </div>
+
+  <div class="actions mt-5">
+    <%= f.submit :class=>"btn btn-outline-light btn-dark btn-block" %>
+  </div>
   </div>
 
 <div class="col-sm-6">
@@ -44,6 +48,8 @@
     <%= f.text_field :post_video, class: "form-control" %>
   </div>
 
+<% end %>
+
   <p>読み取った内容がボックスに表示されます</p>
   <textarea class="form-control mb-5" id="result" style="height: 200px;" disabled></textarea>
     <div class="input-group">
@@ -51,17 +57,12 @@
         <input type="file" id="ocr_image" class="custom-file-input" accept="image/jpeg, image/png">
         <label class="custom-file-label" for="ocr_image" data-browse="参照">読み取り...(ここにドロップもできます)</label>
       </div>
-      <div class="input-group-append">
+      <div class="input-group-append mb-3">
         <button type="button" class="btn btn-outline-secondary input-group-text" id="inputFileReset">取消</button>
         <button class="btn btn-outline-secondary input-group-text" id="ocr">読み込み</button>
       </div>
     </div>
 </div>
-
-  <div class="actions col-sm-6 mt-3">
-    <%= f.submit :class=>"btn btn-outline-light btn-dark btn-block" %>
-  </div>
-<% end %>
   </div>
 </div>
 
